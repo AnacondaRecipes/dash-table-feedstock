@@ -21,6 +21,8 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
     - dash
@@ -32,6 +34,7 @@ test:
 about:
   home: https://dash.plot.ly/datatable
   dev_url: https://github.com/plotly/dash-table
+  doc_url: https://dash.plotly.com/datatable
   license: MIT
   license_family: MIT
   license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
