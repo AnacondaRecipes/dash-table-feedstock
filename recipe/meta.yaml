@@ -1,41 +1,47 @@
 {% set name = "dash-table" %}
 {% set filename = "dash_table" %}
-{% set version = "4.4.1" %}
-{% set sha256 = "cb933f1b5edfc8ea88cf6e3989ad9ff9c3d9e4b441a2423d170ae55b3dcf86bc" %}
+{% set version = "5.0.0" %}
+{% set sha256 = "18624d693d4c8ef2ddec99a6f167593437a7ea0bf153aa20f318c170c5bc7308" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ filename }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ filename }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
-  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
-    - dash
+    - dash  # not mentioned in setup.py but is required to import dash_table
 
 test:
+  requires:
+    - pip
   imports:
     - dash_table
+  commands:
+    - pip check
 
 about:
-  home: https://dash.plot.ly/datatable
+  home: https://github.com/plotly/dash-table
   dev_url: https://github.com/plotly/dash-table
+  doc_url: https://github.com/plotly/dash-table/blob/dev/README.md
   license: MIT
   license_family: MIT
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
+  license_file: LICENSE
   summary: 'A First-Class Interactive DataTable for Dash'
+  description: 'A First-Class Interactive DataTable for Dash'
 
 extra:
   recipe-maintainers:
